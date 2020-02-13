@@ -1,0 +1,25 @@
+/*
+输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。
+*/
+
+public class Solution {
+    public int NumberOf1(int n) {
+        char[] arr = Integer.toBinaryString(n).toCharArray();
+        int count = 0;
+        for(int ch : arr){
+            count += (ch == '1') ? 1 : 0;
+        }
+        return count;
+    }
+}
+
+public class Solution {
+    public int NumberOf1(int n) {
+        int count = 0;
+        while(n != 0){
+            n = n & (n - 1);
+            count++;
+        }
+        return count;
+    }
+}
