@@ -16,3 +16,38 @@ public class Solution {
         return array[0];
     }
 }
+
+import java.util.ArrayList;
+public class Solution {
+    public int minNumberInRotateArray(int [] array) {
+        if(array == null || array.length == 0)
+            return 0;
+        int n = array.length;
+        if(array[n - 1] > array[0])
+            return array[0];
+        
+        int low = 0, high = n - 1, mid = 0;
+        while(array[low] >= array[high]){
+            if(high == low + 1)
+                return array[high];
+            mid = (high + low) / 2;
+            // {0, 1, 1, 1, 1} == > {1, 0, 1, ,1 ,1}  {1, 1, 1, 0, 1}
+            if(array[low] == array[high] && array[mid] == array[low]){
+                return minInOrder(array, low, high);
+            }else if(array[low] <= array[mid]){
+                low = mid;
+            }else if(array[mid] <= array[high]){
+                high = mid;
+            }
+        }
+        return  array[mid];
+    }
+    
+    private int minInOrder(int[] array, int low, int high){
+        int min = array[low];
+        for(int i = low; i <= high; i++){
+            min = (min < array[i]) ? min : array[i];
+        }
+        return min;
+    }
+}
